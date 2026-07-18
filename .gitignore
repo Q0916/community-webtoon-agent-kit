@@ -1,0 +1,20 @@
+# Generated media and provider outputs stay outside Git.
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.mp4
+*.mov
+*.psd
+*.clip
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+
+work/
+reports/
+dist/
+*.validation.json

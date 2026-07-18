@@ -1,0 +1,3 @@
+review_id,reviewer_type,reviewer_name,input_conte_version,output_conte_version,artifact_path,artifact_sha256,status,reviewed_at
+REV001,gemini,Gemini,v0,v1,03_conte/reviews/gemini_v1.md,,pending,
+REV002,human,Director,v1,v2,03_conte/image_ready_conte.md,,pending,

@@ -1,0 +1,2 @@
+page_id,packet_id,prompt_path,output_dir,status,user_authorization_reference
+P001,PROJECT-PKT-001,05_prompts/P001.txt,06_candidates/current,pending,
