@@ -4,7 +4,7 @@
 
 이 저장소는 완성 이미지나 이미지 생성 모델을 배포하지 않습니다. 대신 소재를 해석하고, 콘티를 합의하고, 화면 텍스트와 캐릭터를 잠그고, 여러 이미지 후보를 사람이 고른 뒤, 완성본과 제작 근거를 보관하는 과정을 재사용할 수 있게 제공합니다.
 
-현재 검증된 기본 이미지 생성 실행기는 **[ima2-gen](https://github.com/lidge-jun/ima2-gen)**입니다. 다른 실행기를 연결할 수도 있지만, 이 문서와 실제 사례에서 기본 `provider runtime`은 ima2-gen을 뜻합니다.
+현재 검증된 기본 이미지 생성 실행기는 [**ima2-gen**](https://github.com/lidge-jun/ima2-gen)입니다. 다른 실행기를 연결할 수도 있지만, 이 문서와 실제 사례에서 기본 `provider runtime`은 ima2-gen을 뜻합니다.
 
 ## 이 키트가 가장 중요하게 보는 것
 
@@ -116,4 +116,4 @@ python harness/scripts/freeze_completion.py \
 
 ## 크레딧
 
-기본 이미지 생성 실행기는 **[ima2-gen](https://github.com/lidge-jun/ima2-gen)**이며, 원작자·관리자는 **[lidge-jun](https://github.com/lidge-jun)**입니다. 이 공개킷은 ima2-gen 자체가 아니라 그 위에서 사용하는 커뮤니티 웹툰 제작 스킬·검증 하네스를 제공합니다.
+기본 이미지 생성 실행기는 [**ima2-gen**](https://github.com/lidge-jun/ima2-gen)이며, 원작자·관리자는 [**lidge-jun**](https://github.com/lidge-jun)입니다. 이 공개킷은 ima2-gen 자체가 아니라 그 위에서 사용하는 커뮤니티 웹툰 제작 스킬·검증 하네스를 제공합니다.
