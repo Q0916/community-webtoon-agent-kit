@@ -1,17 +1,24 @@
 # Provider Adapter Contract
 
-이 키트는 특정 이미지 생성 서비스에 묶이지 않습니다. 에이전트는 사용하는 provider에 아래 입력과 증거를 전달할 수 있어야 합니다.
+이 키트의 **현재 검증된 기본 실행기는 [ima2-gen](https://github.com/lidge-jun/ima2-gen)** 입니다. 실제 생성은 ima2-gen의 실제 CLI/server 경로로 수행하며, 별도 shim이나 성공을 흉내 내는 우회 경로를 만들지 않습니다. 다른 provider/runtime으로 교체할 수는 있지만 아래 입력·증거 계약은 그대로 지켜야 합니다.
+
+기본 실행 예시는 `ima2 gen "..."`이며 설치형 CLI가 없으면 `npx ima2-gen <command>`를 사용합니다. 서버 주소가 필요할 때는 출력이나 ima2의 server state를 확인하고 특정 포트를 가정하지 않습니다.
 
 ## 입력
 
 - provider-bound page prompt 한 개
+- generation plan에 기록된 실제 `runtime` 이름(기본값 `ima2-gen`)
+- 작품 전체 이야기, 독자 감정 순서, 현재 페이지의 이유와 전후 상태, fact/MSG 경계
+- generation plan에 잠근 `scene_relation`
 - 해당 페이지의 character/style/continuity reference 목록
 - 출력 디렉터리
 - 페이지 ID와 시도 ID
 - 기술 사전검사 결과
 - 사용자의 현재 생성 승인 근거
 
-각 page prompt는 다른 전역 문서를 읽지 않아도 독립적으로 완전해야 합니다. `COMMUNITY_TOON_GENERATION_CONTRACT_V1` 블록과 페이지별 캐스트·텍스트·소품·구도 정보가 같은 파일 안에 있어야 합니다.
+각 page prompt는 다른 전역 문서를 읽지 않아도 독립적으로 완전해야 합니다. `COMMUNITY_TOON_GENERATION_CONTRACT_V1` 블록과 작품 공통 이해, 페이지별 캐스트·텍스트·소품·구도 정보가 같은 파일 안에 있어야 합니다. 정확한 수행 지시만 보내고 작품 전체 이유와 감정선을 생략하지 않습니다.
+
+Adapter는 page ID나 제출 순서에서 continuity를 추론하지 않습니다. `independent_page`에는 scene-continuity reference가 없어야 하고, `same_scene_continuation` 또는 `reused_shot_variation`에는 선언된 scene reference가 있어야 합니다.
 
 ## 출력 증거
 

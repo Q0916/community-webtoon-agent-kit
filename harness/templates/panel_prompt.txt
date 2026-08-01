@@ -1,4 +1,5 @@
 COMMUNITY_TOON_GENERATION_CONTRACT_V1:
+- shared_understanding_rule: preserve the whole-story reason, reader-emotion sequence, recognizable motif, and fact/MSG boundary; do not replace them with micro-instructions alone.
 - page_canvas_lock: 1024x1536 pure white vertical webtoon manuscript page.
 - multi_cut_rule: preserve the page-specific layout as 2-4 inset panels, cut-ins, or compact illustration blocks.
 - white_gutter_lock: keep 28-42% continuous blank white manuscript space for pacing, speech bubbles, captions, comments, UI boxes, and SFX.
@@ -10,6 +11,10 @@ COMMUNITY_TOON_GENERATION_CONTRACT_V1:
 Page ID:
 Story role:
 Required source rows:
+Scene relation:
+Whole-comic story and reader-emotion sequence:
+Why this page exists and state before/after:
+Fact/inference/MSG boundary:
 Exact visible cast and reference roles:
 Scene-continuity references:
 Allowed visible object and information-prop inventory:

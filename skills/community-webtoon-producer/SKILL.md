@@ -1,6 +1,6 @@
 ---
 name: community-webtoon-producer
-description: Use when turning an online community post, forum incident, meme thread, live gallery mood, or user-supplied issue into a short Korean vertical info-gag webtoon; includes source collection, fact-mood-MSG separation, sweet-spot approval, causal storyboard packets, cast-text-reference locks, provider-neutral generation preflight, human review, and completion archiving.
+description: Use when turning an online community post, forum incident, meme thread, live gallery mood, or user-supplied issue into a short Korean vertical info-gag webtoon; includes source collection, fact-mood-MSG separation, sweet-spot approval, causal storyboard packets, cast-text-reference locks, ima2-gen-first generation preflight, human review, and completion archiving.
 ---
 
 # Community Webtoon Producer
@@ -8,6 +8,14 @@ description: Use when turning an online community post, forum incident, meme thr
 ## Objective
 
 Produce a readable Korean community webtoon without hallucinating the community, skipping causal story work, or confusing successful image generation with user approval.
+
+## Primary Quality Rule
+
+Treat shared context and understanding alignment as a production input, not as conversational polish. A precise micro-prompt cannot recover a missing whole-story reason, reader-emotion sequence, recognizable motif, fact/MSG boundary, or user-observed mismatch.
+
+Preserve context that may look irrelevant to the immediate command when it changes creative judgment. Re-state the minimum common understanding inside every downstream packet that asks another model or pass to decide. Paths, hashes, references, and previous images prove state or appearance; they do not explain why the work should look or feel that way.
+
+This rule comes from repeated quality improvement after failed prompt-only passes. It is not an abstract collaboration philosophy.
 
 ## First Read
 
@@ -31,16 +39,17 @@ If no project exists, initialize one with `harness/scripts/init_project.py`.
 7. Require a human to read, edit if needed, and explicitly approve the final conte version. GPT/Codex structural checks do not certify front-end creative quality.
 8. Record Gemini and human evidence in `editorial_review_lock.csv`, with the human-approved output version matching the current conte version.
 9. Promote the human-approved conte into page/cut packets with stable packet IDs.
-10. Lock visible text source class and approval state.
-11. Lock visible text routing: owner, role, attachment, read order.
-12. Lock visible cast, reference roles, hashes, and co-appearance rules. If a recurring character has no human-approved identity reference, stop and request one instead of claiming identity consistency.
-13. Write one self-contained provider-bound prompt per page using the generation contract.
-14. Run `validate_project.py --stage pre-generation --strict`.
-15. Wait for explicit user authorization to generate.
-16. Generate one pilot or a small batch. Record provider inputs and outputs.
-17. Hand every candidate to the user for visual judgment. Report only objective facts unless critique is explicitly requested.
-18. Move unselected or superseded candidates out of current. Do not delete evidence.
-19. After final approval, freeze final composites, approved sources, and actually used materials with SHA-256 manifests.
+10. Classify every page as `independent_page`, `same_scene_continuation`, or `reused_shot_variation`. Page order and dialogue progression alone do not prove visual continuity.
+11. Lock visible text source class and approval state.
+12. Lock visible text routing: owner, role, attachment, read order.
+13. Lock visible cast, reference roles, hashes, and co-appearance rules. If a recurring character has no human-approved identity reference, stop and request one instead of claiming identity consistency.
+14. Write one self-contained provider-bound prompt per page using the generation contract.
+15. Run `validate_project.py --stage pre-generation --strict`.
+16. Wait for explicit user authorization to generate.
+17. Use ima2-gen as the default runtime and record the actual runtime, inputs, and outputs. After authorization, generate at least three independent candidates; prefer four to six for acting, expression, action, reveal, or atmosphere. Use a single candidate only for a technical probe, explicit cost limit, or direct user request.
+18. Hand every candidate to the user for visual judgment. Report only objective facts unless critique is explicitly requested.
+19. Move unselected or superseded candidates out of current. Do not delete evidence.
+20. After final approval, freeze final composites, approved sources, and actually used materials with SHA-256 manifests.
 
 ## Source Scope
 
@@ -65,6 +74,18 @@ Do not turn a broad summary directly into image prompts. Each packet needs:
 This is a structural gate, not a guarantee that GPT/Codex wrote a strong conte. The production path is incomplete until Gemini has independently reviewed/versioned the conte and a human has approved the final version.
 
 If a reveal jumps too abruptly, insert a stacked two-subpanel bridge and delay the actual reveal to the next packet.
+
+## Page Relation Gate
+
+Choose the relationship before building references:
+
+- `independent_page`: use character identity/style references only. A later dialogue or reaction page can still be independent.
+- `same_scene_continuation`: add the previous approved/current image as a separate scene-state reference while retaining identity references.
+- `reused_shot_variation`: use the approved/current shot as the variation source while retaining identity references.
+
+The skill owns this semantic judgment. The harness validates the declared relation and prompt/reference consistency; the provider runtime only executes the job. Do not describe a harness-binding error as an action-scene decision, or ask the harness to infer story meaning from page numbers.
+
+The currently verified default provider runtime is `ima2-gen`. This is an execution choice, not a transfer of story judgment: the skill decides meaning, the harness validates declared bindings, and ima2-gen submits the actual generation job. Alternative runtimes must still record their real name and preserve the same adapter evidence.
 
 ## Image Page Contract
 
