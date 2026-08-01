@@ -111,14 +111,18 @@ class KitTests(unittest.TestCase):
         )
         write_csv(
             locks / "generation_plan.csv",
-            ["page_id", "packet_id", "prompt_path", "output_dir", "status", "user_authorization_reference"],
-            [["P001", "DEMO-TOON-PKT-001", "05_prompts/P001.txt", "06_candidates/current", "pending", "user-message"]],
+            ["page_id", "packet_id", "scene_relation", "runtime", "prompt_path", "output_dir", "status", "user_authorization_reference"],
+            [["P001", "DEMO-TOON-PKT-001", "independent_page", "ima2-gen", "05_prompts/P001.txt", "06_candidates/current", "pending", "user-message"]],
         )
         prompt = (ROOT / "harness" / "templates" / "panel_prompt.txt").read_text(encoding="utf-8")
         values = {
             "Page ID:": "Page ID: P001",
             "Story role:": "Story role: setup and reversal",
             "Required source rows:": "Required source rows: S001",
+            "Scene relation:": "Scene relation: independent_page",
+            "Whole-comic story and reader-emotion sequence:": "Whole-comic story and reader-emotion sequence: quiet discovery, reversal, then amused release",
+            "Why this page exists and state before/after:": "Why this page exists and state before/after: turn a neutral board into the cause of the reaction",
+            "Fact/inference/MSG boundary:": "Fact/inference/MSG boundary: S001 fact; the reaction is approved MSG",
             "Exact visible cast and reference roles:": "Exact visible cast and reference roles: CHAR001, generic silhouette",
             "Scene-continuity references:": "Scene-continuity references: none",
             "Allowed visible object and information-prop inventory:": "Allowed visible object and information-prop inventory: board, phone",
@@ -190,6 +194,69 @@ class KitTests(unittest.TestCase):
         )
         report = run_validation(self.project, "pre-generation", True)
         self.assertEqual(report.status, "pass", report.failures)
+
+    def test_scene_relation_must_be_declared(self) -> None:
+        self.make_valid_project()
+        write_csv(
+            self.project / "04_locks" / "generation_plan.csv",
+            ["page_id", "packet_id", "scene_relation", "runtime", "prompt_path", "output_dir", "status", "user_authorization_reference"],
+            [["P001", "DEMO-TOON-PKT-001", "", "ima2-gen", "05_prompts/P001.txt", "06_candidates/current", "pending", "user-message"]],
+        )
+        report = run_validation(self.project, "pre-generation", True)
+        self.assertEqual(report.status, "fail")
+        self.assertTrue(any("scene relation" in failure for failure in report.failures))
+
+    def test_prompt_requires_shared_understanding_context(self) -> None:
+        self.make_valid_project()
+        prompt_path = self.project / "05_prompts" / "P001.txt"
+        prompt = prompt_path.read_text(encoding="utf-8").replace(
+            "Whole-comic story and reader-emotion sequence: quiet discovery, reversal, then amused release",
+            "Whole-comic story and reader-emotion sequence:",
+        )
+        prompt_path.write_text(prompt, encoding="utf-8")
+        report = run_validation(self.project, "pre-generation", True)
+        self.assertEqual(report.status, "fail")
+        self.assertTrue(any("Whole-comic story" in failure for failure in report.failures))
+
+    def test_generation_runtime_must_be_declared(self) -> None:
+        self.make_valid_project()
+        write_csv(
+            self.project / "04_locks" / "generation_plan.csv",
+            ["page_id", "packet_id", "scene_relation", "runtime", "prompt_path", "output_dir", "status", "user_authorization_reference"],
+            [["P001", "DEMO-TOON-PKT-001", "independent_page", "", "05_prompts/P001.txt", "06_candidates/current", "pending", "user-message"]],
+        )
+        report = run_validation(self.project, "pre-generation", True)
+        self.assertEqual(report.status, "fail")
+        self.assertTrue(any("generation runtime" in failure for failure in report.failures))
+
+    def test_independent_page_rejects_continuity_reference(self) -> None:
+        self.make_valid_project()
+        prompt_path = self.project / "05_prompts" / "P001.txt"
+        prompt = prompt_path.read_text(encoding="utf-8").replace(
+            "Scene-continuity references: none",
+            "Scene-continuity references: previous-page.png",
+        )
+        prompt_path.write_text(prompt, encoding="utf-8")
+        report = run_validation(self.project, "pre-generation", True)
+        self.assertEqual(report.status, "fail")
+        self.assertTrue(any("independent page" in failure for failure in report.failures))
+
+    def test_continuing_scene_requires_reference(self) -> None:
+        self.make_valid_project()
+        write_csv(
+            self.project / "04_locks" / "generation_plan.csv",
+            ["page_id", "packet_id", "scene_relation", "runtime", "prompt_path", "output_dir", "status", "user_authorization_reference"],
+            [["P001", "DEMO-TOON-PKT-001", "same_scene_continuation", "ima2-gen", "05_prompts/P001.txt", "06_candidates/current", "pending", "user-message"]],
+        )
+        prompt_path = self.project / "05_prompts" / "P001.txt"
+        prompt = prompt_path.read_text(encoding="utf-8").replace(
+            "Scene relation: independent_page",
+            "Scene relation: same_scene_continuation",
+        )
+        prompt_path.write_text(prompt, encoding="utf-8")
+        report = run_validation(self.project, "pre-generation", True)
+        self.assertEqual(report.status, "fail")
+        self.assertTrue(any("lacks a scene reference" in failure for failure in report.failures))
 
     def test_completion_archive_copies_and_hashes(self) -> None:
         files = []

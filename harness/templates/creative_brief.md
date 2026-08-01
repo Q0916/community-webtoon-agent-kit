@@ -4,6 +4,38 @@
 
 TBD
 
+## Shared Understanding
+
+### Whole Story
+
+What is this work as a complete story, not only as the next task?
+
+TBD
+
+### Reader Emotion Sequence
+
+What should the reader feel, and in what order?
+
+TBD
+
+### Why This Work Exists
+
+Why does this scene/comic matter to the Director and this community?
+
+TBD
+
+### Seemingly Irrelevant Context That Changes Judgment
+
+Record side remarks, prior mismatches, exact motifs, or situational context that changes acting, staging, or interpretation.
+
+TBD
+
+### Understanding Check
+
+What do the Director and producer currently agree on, and what remains uncertain?
+
+TBD
+
 ## Director Intent
 
 What does the user want to show, attack, defend, celebrate, or make funny?

@@ -36,6 +36,7 @@ PACKET_FIELDS = [
 
 PROMPT_TOKENS = [
     "COMMUNITY_TOON_GENERATION_CONTRACT_V1",
+    "shared_understanding_rule",
     "page_canvas_lock",
     "white_gutter_lock",
     "outside_text_space",
@@ -45,6 +46,14 @@ PROMPT_TOKENS = [
     "Background budget:",
     "Positive composition lock:",
 ]
+
+SCENE_RELATIONS = {
+    "independent_page",
+    "same_scene_continuation",
+    "reused_shot_variation",
+}
+
+NO_SCENE_REFERENCE_VALUES = {"none", "n/a", "not applicable"}
 
 
 @dataclass
@@ -279,10 +288,16 @@ def validate_pre_generation(project: Path, report: Report, packet_ids: set[str])
     for row in plan_rows:
         page_id = (row.get("page_id") or "").strip()
         packet_id = (row.get("packet_id") or "").strip()
+        scene_relation = (row.get("scene_relation") or "").strip().lower()
+        runtime = (row.get("runtime") or "").strip()
         prompt_raw = (row.get("prompt_path") or "").strip()
         if not page_id or not packet_id or not prompt_raw:
             report.failures.append("generation plan row has empty page, packet, or prompt")
             continue
+        if scene_relation not in SCENE_RELATIONS:
+            report.failures.append(f"invalid or missing scene relation: {page_id}")
+        if not runtime:
+            report.failures.append(f"missing generation runtime: {page_id}")
         if page_id in page_ids:
             report.failures.append(f"duplicate page ID in generation plan: {page_id}")
         page_ids.add(page_id)
@@ -302,6 +317,10 @@ def validate_pre_generation(project: Path, report: Report, packet_ids: set[str])
             "Page ID",
             "Story role",
             "Required source rows",
+            "Scene relation",
+            "Whole-comic story and reader-emotion sequence",
+            "Why this page exists and state before/after",
+            "Fact/inference/MSG boundary",
             "Exact visible cast and reference roles",
             "Allowed visible object and information-prop inventory",
             "Background budget",
@@ -309,9 +328,19 @@ def validate_pre_generation(project: Path, report: Report, packet_ids: set[str])
             "Positive composition lock",
             "Review destination",
         ]:
-            match = re.search(rf"^{re.escape(label)}:\s*(.*)$", prompt, flags=re.MULTILINE)
+            match = re.search(rf"^{re.escape(label)}:[ \t]*(.*)$", prompt, flags=re.MULTILINE)
             if not match or not match.group(1).strip():
                 report.failures.append(f"{page_id} prompt has empty field: {label}")
+        prompt_relation_match = re.search(r"^Scene relation:[ \t]*(.*)$", prompt, flags=re.MULTILINE)
+        prompt_relation = prompt_relation_match.group(1).strip().lower() if prompt_relation_match else ""
+        if scene_relation in SCENE_RELATIONS and prompt_relation != scene_relation:
+            report.failures.append(f"{page_id} prompt scene relation does not match generation plan")
+        scene_refs_match = re.search(r"^Scene-continuity references:[ \t]*(.*)$", prompt, flags=re.MULTILINE)
+        scene_refs = scene_refs_match.group(1).strip().lower() if scene_refs_match else ""
+        if scene_relation == "independent_page" and scene_refs not in NO_SCENE_REFERENCE_VALUES:
+            report.failures.append(f"{page_id} independent page declares a scene-continuity reference")
+        if scene_relation in {"same_scene_continuation", "reused_shot_variation"} and scene_refs in ({""} | NO_SCENE_REFERENCE_VALUES):
+            report.failures.append(f"{page_id} continuing/reused scene lacks a scene reference")
         negative_terms = re.findall(r"\b(?:without|avoid)\b|금지|없게", prompt, flags=re.IGNORECASE)
         if negative_terms:
             report.warnings.append(f"{page_id} provider prompt contains negative construction terms")
