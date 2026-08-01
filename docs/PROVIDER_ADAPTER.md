@@ -1,6 +1,6 @@
 # Provider Adapter Contract
 
-이 키트의 **현재 검증된 기본 실행기는 [ima2-gen](https://github.com/lidge-jun/ima2-gen)** 입니다. 실제 생성은 ima2-gen의 실제 CLI/server 경로로 수행하며, 별도 shim이나 성공을 흉내 내는 우회 경로를 만들지 않습니다. 다른 provider/runtime으로 교체할 수는 있지만 아래 입력·증거 계약은 그대로 지켜야 합니다.
+이 키트의 현재 검증된 기본 실행기는 [**ima2-gen**](https://github.com/lidge-jun/ima2-gen)입니다. 실제 생성은 ima2-gen의 실제 CLI/server 경로로 수행하며, 별도 shim이나 성공을 흉내 내는 우회 경로를 만들지 않습니다. 다른 provider/runtime으로 교체할 수는 있지만 아래 입력·증거 계약은 그대로 지켜야 합니다.
 
 기본 실행 예시는 `ima2 gen "..."`이며 설치형 CLI가 없으면 `npx ima2-gen <command>`를 사용합니다. 서버 주소가 필요할 때는 출력이나 ima2의 server state를 확인하고 특정 포트를 가정하지 않습니다.
 
