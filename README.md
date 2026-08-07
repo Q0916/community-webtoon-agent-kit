@@ -26,7 +26,7 @@
 | 주체 | 맡는 일 | 맡지 않는 일 |
 |---|---|---|
 | **User / Director** | 작품의 의미, 취향, 범위, 최종 승인과 후보 선택 | 미감 판단을 에이전트에게 전부 위임 |
-| **AGY / Gemini** | 콘티 초안 작성 또는 별도 검수·버전업, 연출과 대사의 어감·뉘앙스에 대한 두 번째 시선 | 사실 출처와 최종 승인 대체 |
+| **AGY / Gemini** | Director/Producer의 거친 뼈대에 남겨 둔 빈칸을 채우고 연출·대사의 어감·타이밍을 제안 | 사실 출처와 최종 승인 대체 |
 | **Codex / Producer** | 소스 확인, 콘티 편집·통합, 잠금 문서와 프롬프트 준비, 제작 실행과 증거 정리 | Director의 취향이나 승인을 대신 결정 |
 | **제작 스킬** | 장면의 의미, 캐릭터 역할, 페이지 관계, 작업 순서를 판단 | 이미지 생성 작업 자체 수행 |
 | **검증 하네스** | 선언된 텍스트·캐스트·레퍼런스·페이지 관계·런타임 입력과 완성 증거를 검사 | 이야기나 연출의 정답 결정 |
@@ -68,21 +68,23 @@ python harness/scripts/init_project.py --root work --slug my-first-toon --title 
 
 1. `01_sources/source_ledger.md`: 사실, 분위기, MSG, 사용 금지를 분리합니다.
 2. `02_direction/creative_brief.md`: 사용자 의도, 커뮤니티 기대, 만화 가독성의 교집합을 승인받습니다.
-3. `03_conte/image_ready_conte.md`: 인과가 보이는 텍스트 콘티와 컷 패킷을 작성합니다.
-4. 콘티를 Gemini가 별도로 검수·버전업하고, 사람이 최종본을 직접 고쳐 보거나 승인합니다.
-5. `04_locks/editorial_review_lock.csv`에 Gemini 검수본과 사람 승인본의 버전·근거 파일을 기록합니다.
-6. `04_locks`: 화면 텍스트, 화자, 캐스트, 레퍼런스를 잠급니다.
-7. `generation_plan.csv`에서 각 페이지를 `independent_page`, `same_scene_continuation`, `reused_shot_variation` 중 하나로 잠급니다.
-8. `generation_plan.csv`의 `runtime`을 기본값 `ima2-gen`으로 기록하고, `05_prompts`에 각 페이지가 독립적으로 완전한 provider-bound 프롬프트를 갖게 합니다.
-9. 생성 전 검사를 실행합니다.
+3. `03_conte`에 Director/Producer의 거친 장면 뼈대를 먼저 보존합니다. 창작 모델에게 맡길 빈칸을 미리 메우지 않습니다.
+4. 그 뼈대와 사실/MSG 경계를 Gemini에게 주어 빈칸 채우기·연출 패스를 받고, 원출력을 별도 파일로 보존합니다.
+5. Director와 Producer가 제안별로 `adopt / adapt / reject`를 정리한 뒤 하나의 canonical 콘티를 만들고 사람이 직접 수정하거나 승인합니다.
+6. `04_locks/editorial_review_lock.csv`에 원 뼈대, Gemini 원출력, 공동 검토, 사람 승인본의 버전·근거 파일을 기록합니다.
+7. `04_locks`: 화면 텍스트, 화자, 캐스트, 레퍼런스를 잠급니다.
+8. `generation_plan.csv`에서 각 페이지를 `independent_page`, `same_scene_continuation`, `reused_shot_variation` 중 하나로 잠급니다.
+9. `generation_plan.csv`의 `runtime`을 기본값 `ima2-gen`으로 기록하고, `05_prompts`에 각 페이지가 독립적으로 완전한 provider-bound 프롬프트를 갖게 합니다.
+10. 생성 전 검사를 실행합니다.
 
 ```bash
 python harness/scripts/validate_project.py --project work/my-first-toon --stage pre-generation --strict
 ```
 
-10. 사용자 생성 승인 뒤 ima2-gen으로 최소 3개의 독립 후보를 빠르게 생성하고 사람이 직접 판단합니다. 연기·표정·액션·반전·분위기가 중요한 컷은 4~6개를 우선합니다.
-11. 승인된 파일만 별도 전달 폴더로 복사합니다.
-12. 최종 승인 후 완성본, 승인 원본, 실제 사용 소재를 해시와 함께 동결합니다.
+11. 사용자 생성 승인 뒤 ima2-gen으로 최소 3개의 독립 후보를 빠르게 생성하고 사람이 직접 판단합니다. 연기·표정·액션·반전·분위기가 중요한 컷은 4~6개를 우선합니다.
+12. 한 후보가 실패하면 다음 작업이 끝날 때까지 묵히지 않고, 성공한 작업을 건드리지 않은 채 실패분만 다음 실행 파동 맨 앞에 즉시 재투입합니다. 마지막 파동 뒤에도 한 번은 단독 재시도하고 남은 실패는 숨기지 않습니다.
+13. 승인된 파일만 별도 전달 폴더로 복사합니다.
+14. 최종 승인 후 완성본, 승인 원본, 실제 사용 소재를 해시와 함께 동결합니다.
 
 ```bash
 python harness/scripts/freeze_completion.py \
