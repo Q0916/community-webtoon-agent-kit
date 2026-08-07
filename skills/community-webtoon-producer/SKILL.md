@@ -33,11 +33,11 @@ If no project exists, initialize one with `harness/scripts/init_project.py`.
 1. Collect the primary post and a narrow sample of surrounding reaction sources. Record URLs and observed times.
 2. Separate `primary_fact`, `mood_source`, `MSG`, and `do_not_use` in the source ledger.
 3. Discuss and obtain approval for the sweet spot: Director intent, community reader expectation, and comic pacing.
-4. Write an overfull draft conte, then reduce it only after causality is visible. Preserve this version.
-5. Give every cut these fields: `handoff_from_previous`, `reader_first_sees`, `character_realizes`, `push_to_next`.
-6. Send the full source basis and current conte to Gemini for an independent editorial review and version-up. Preserve the Gemini artifact as a new version; do not overwrite the draft.
-7. Require a human to read, edit if needed, and explicitly approve the final conte version. GPT/Codex structural checks do not certify front-end creative quality.
-8. Record Gemini and human evidence in `editorial_review_lock.csv`, with the human-approved output version matching the current conte version.
+4. Write and preserve a rough Director/producer beat skeleton. When a deliberate blank is part of the brief, leave it open instead of pre-solving it before the creative pass.
+5. Give the skeleton and the full source/fact/MSG boundary to Gemini as a blank-filling or staging pass. Preserve the raw Gemini output beside the raw skeleton; do not overwrite either artifact.
+6. Review the two artifacts with the Director and record each substantial proposal as `adopt`, `adapt`, or `reject`. Codex may enter the work to correct facts or continuity; that correction can remain visible when it serves the comic.
+7. Consolidate the accepted result into one canonical conte. Give every cut `handoff_from_previous`, `reader_first_sees`, `character_realizes`, and `push_to_next`, then reduce density only after causality is visible.
+8. Require a human to read, edit if needed, and explicitly approve that canonical conte. Record the raw skeleton, raw Gemini pass, joint review, and human-approved canonical version in `editorial_review_lock.csv`.
 9. Promote the human-approved conte into page/cut packets with stable packet IDs.
 10. Classify every page as `independent_page`, `same_scene_continuation`, or `reused_shot_variation`. Page order and dialogue progression alone do not prove visual continuity.
 11. Lock visible text source class and approval state.
@@ -47,6 +47,7 @@ If no project exists, initialize one with `harness/scripts/init_project.py`.
 15. Run `validate_project.py --stage pre-generation --strict`.
 16. Wait for explicit user authorization to generate.
 17. Use ima2-gen as the default runtime and record the actual runtime, inputs, and outputs. After authorization, generate at least three independent candidates; prefer four to six for acting, expression, action, reveal, or atmosphere. Use a single candidate only for a technical probe, explicit cost limit, or direct user request.
+   - If one independent job fails while later work remains, carry only the missing job into the next live wave immediately, ahead of ordinary jobs, without rebooting or cancelling successful in-flight work. After the final wave, make one isolated tail retry and leave any remaining failure explicit.
 18. Hand every candidate to the user for visual judgment. Report only objective facts unless critique is explicitly requested.
 19. Move unselected or superseded candidates out of current. Do not delete evidence.
 20. After final approval, freeze final composites, approved sources, and actually used materials with SHA-256 manifests.
@@ -71,7 +72,7 @@ Do not turn a broad summary directly into image prompts. Each packet needs:
 - next-cut hook
 - review destination
 
-This is a structural gate, not a guarantee that GPT/Codex wrote a strong conte. The production path is incomplete until Gemini has independently reviewed/versioned the conte and a human has approved the final version.
+This is a structural gate, not a guarantee that GPT/Codex wrote a strong conte. The production path is incomplete until the raw Gemini creative pass has been preserved, its proposals have been jointly adopted/adapted/rejected, and a human has approved the consolidated canonical version.
 
 If a reveal jumps too abruptly, insert a stacked two-subpanel bridge and delay the actual reveal to the next packet.
 
