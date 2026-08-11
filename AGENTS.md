@@ -32,7 +32,7 @@
 
 ## 필수 제작 순서
 
-`source ledger -> direction agreement -> draft conte -> Gemini editorial review/version-up -> human edit/final conte approval -> locks -> provider prompt pack -> technical preflight -> user generation approval -> pilot -> human review -> selected delivery -> completion archive`
+`source ledger -> direction agreement -> draft conte -> Gemini editorial review/version-up -> human edit/final conte approval -> locks -> provider prompt pack -> technical preflight -> user generation approval -> pilot -> human review -> optional selected-page finishing -> selected delivery -> completion archive`
 
 단계를 건너뛰지 않는다. 직전 단계가 승인되지 않았으면 다음 단계의 실제 생성이나 대량 작업을 시작하지 않는다.
 
@@ -59,6 +59,7 @@
 - 현재 검증된 기본 이미지 생성 실행기는 `ima2-gen`이다. 실제 생성은 가짜 shim이나 우회 성공 상태가 아니라 ima2-gen의 실제 CLI/server 경로로 수행한다.
 - 다른 이미지 생성 실행기로 교체할 수는 있지만 `generation_plan.csv`의 `runtime`에 실제 사용값을 기록하고 `docs/PROVIDER_ADAPTER.md`의 입출력 계약을 지킨다.
 - 사용자 승인 뒤 창작 후보는 기본 3개 이상을 빠르게 만든다. 연기·표정·액션·반전·분위기 전환처럼 취향 의존도가 높은 컷은 4~6개를 우선한다. 단일 생성은 기술 시험, 명시적 비용 제한, 사용자 직접 요청에만 쓴다.
+- 사람이 구조·핵심 연기·캐스트가 맞는 후보를 선택한 뒤 식자나 소수의 국소 오류만 남았으면 `harness/templates/post_selection_page_finish_request.md`를 실험적으로 사용할 수 있다. 선택 원본과 해시는 보존하고, 전체 최종 visible text와 routing을 다시 쓰며, 컷별 자연어 수정과 keep list를 함께 넣어 새 후보로 받는다. 구조·인과·정체성·fact/MSG 경계가 틀리면 수정으로 덮지 말고 재생성한다.
 - 장시간 생성은 sidecar로 실행하고, 접수 확인 뒤 대화를 반복 폴링으로 막지 않는다.
 - 출력 성공을 품질 성공으로 보고하지 않는다. 파일 수, 경로, 크기, 해시, 로그 같은 객관 사실만 보고한다.
 

@@ -49,8 +49,9 @@ If no project exists, initialize one with `harness/scripts/init_project.py`.
 17. Use ima2-gen as the default runtime and record the actual runtime, inputs, and outputs. After authorization, generate at least three independent candidates; prefer four to six for acting, expression, action, reveal, or atmosphere. Use a single candidate only for a technical probe, explicit cost limit, or direct user request.
    - If one independent job fails while later work remains, carry only the missing job into the next live wave immediately, ahead of ordinary jobs, without rebooting or cancelling successful in-flight work. After the final wave, make one isolated tail retry and leave any remaining failure explicit.
 18. Hand every candidate to the user for visual judgment. Report only objective facts unless critique is explicitly requested.
-19. Move unselected or superseded candidates out of current. Do not delete evidence.
-20. After final approval, freeze final composites, approved sources, and actually used materials with SHA-256 manifests.
+19. If the human-selected page already has the right structure, acting, cast, and story beat but has repairable lettering or a few local visual defects, optionally use `harness/templates/post_selection_page_finish_request.md`. Preserve the selected original and hash, replace the complete final visible-text inventory from the source/routing lock, describe only cut-local visual repairs and the keep list, and save the edit as a new candidate for human comparison. Regenerate instead when structure, causality, identity, fact/MSG boundary, or core acting is wrong. This path remains experimental until density trials prove it reduces time to usable result.
+20. Move unselected or superseded candidates out of current. Do not delete evidence.
+21. After final approval, freeze final composites, approved sources, and actually used materials with SHA-256 manifests.
 
 ## Source Scope
 
