@@ -1,7 +1,7 @@
 COMMUNITY_TOON_GENERATION_CONTRACT_V1:
 - shared_understanding_rule: preserve the whole-story reason, reader-emotion sequence, recognizable motif, and fact/MSG boundary; do not replace them with micro-instructions alone.
 - page_canvas_lock: 1024x1536 pure white vertical webtoon manuscript page.
-- inner_stage_box: use a centered drawing stage about 60% of page width and 78% of page height, reserving about 20% white on each side and 11% above/below. Layout percentages refer to this stage unless explicitly scoped otherwise. This concentrates expressive effort; it is not a measured token or billing claim.
+- inner_stage_box: use a centered drawing stage about 60% of page width and 78% of page height, reserving about 20% white on each side and 11% above/below. Layout percentages refer to this stage unless explicitly scoped otherwise. Our working hypothesis is that a limited drawing area concentrates the available generation-token budget on focal expression. Please cooperate: develop the key acting, dialogue and props within that area and preserve the surrounding white reserve as finished space.
 - lettering_focus: cluster readable text around the adopted information focus. Scale text and bubbles to the utterance and rhythm, preserving reaction and pause space. Local outside-panel lettering is expressive emphasis; keep the outer-page reserve distinct from inner gutters.
 - multi_cut_rule: follow the adopted page-specific panel count, occupied areas, positions and boundary choices; carry their narrative purpose into the image.
 - white_gutter_lock: preserve the adopted manuscript whitespace and lettering space so the intended pauses, reactions and reading order remain visible.
