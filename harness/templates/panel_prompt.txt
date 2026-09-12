@@ -8,6 +8,7 @@ COMMUNITY_TOON_GENERATION_CONTRACT_V1:
 - outside_text_space: bubbles, captions, comment boxes, and SFX may sit on the literal white page outside illustrated blocks.
 - full_page_policy: implement the current approved conte, including a splash or small reaction when chosen for its scene function.
 - text_rule: render only the rows supplied by the visible-text source and routing locks.
+- focal_detail: please concentrate expressive effort on the scene's acting, dialogue and meaningful props. Treat supporting cups, book spines, walls and UI as simple forms and quiet surfaces. Use the detail saved from backgrounds to refine focal acting rather than adding prop inventory, ornament or extra lettering. Preserve specified prop text when it carries the story or joke.
 - read_order: preserve clear top-to-bottom Korean webtoon reading order.
 
 Page ID:
