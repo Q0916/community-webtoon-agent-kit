@@ -19,6 +19,10 @@
 |---|---|---|
 |  | keep / merge / bubble / cut |  |
 
+## Panel Layout Revision
+
+페이지별로 의도한 경험, 컷의 점유·크기·위치, 그림과 식자의 읽는 관계, 여백과 경계, 선택 이유를 적는다. 대사·반응 공간이 충돌하면 페이지 추가나 배치 변경도 검토한다. docs/PANEL_LAYOUT_REVISION.md 참고.
+
 ## Packet Index
 
 | packet_id | source rows | function | lock status |

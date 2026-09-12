@@ -1,10 +1,10 @@
 COMMUNITY_TOON_GENERATION_CONTRACT_V1:
 - shared_understanding_rule: preserve the whole-story reason, reader-emotion sequence, recognizable motif, and fact/MSG boundary; do not replace them with micro-instructions alone.
 - page_canvas_lock: 1024x1536 pure white vertical webtoon manuscript page.
-- multi_cut_rule: preserve the page-specific layout as 2-4 inset panels, cut-ins, or compact illustration blocks.
-- white_gutter_lock: keep 28-42% continuous blank white manuscript space for pacing, speech bubbles, captions, comments, UI boxes, and SFX.
+- multi_cut_rule: follow the adopted page-specific panel count, occupied areas, positions and boundary choices; carry their narrative purpose into the image.
+- white_gutter_lock: preserve the adopted manuscript whitespace and lettering space so the intended pauses, reactions and reading order remain visible.
 - outside_text_space: bubbles, captions, comment boxes, and SFX may sit on the literal white page outside illustrated blocks.
-- full_page_policy: use separate inset illustration blocks by default; a full-page highlight requires explicit Director approval.
+- full_page_policy: implement the current approved conte, including a splash or small reaction when chosen for its scene function.
 - text_rule: render only the rows supplied by the visible-text source and routing locks.
 - read_order: preserve clear top-to-bottom Korean webtoon reading order.
 

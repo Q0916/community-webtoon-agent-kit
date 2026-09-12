@@ -1,5 +1,13 @@
 # Creative Direction Brief
 
+## Roles And Judgment
+
+Director: 원작자·총괄 크리에이티브 디렉터. AGY: 메인 작가·연출가. Codex: 제작 프로듀서·담당 편집자.
+
+이번 위임, 활용할 전문 관점과 이유, 아직 열린 선택:
+
+TBD
+
 ## Topic In One Sentence
 
 TBD
@@ -48,9 +56,9 @@ Which observed phrasing, tension, meme posture, or expected scene gives the comm
 
 TBD
 
-## Comic Readability Need
+## Commercial Visual Reward
 
-What setup, visible turn, reaction, bridge, and payoff does a short vertical comic need?
+어떤 그림·연기·선·구도·여백·생략이 텍스트만으로 전달하기 어려운 정보와 매력을 주는가?
 
 TBD
 
@@ -62,7 +70,7 @@ TBD
 
 TBD
 
-## Must Preserve
+## Chosen Decisions And Their Reasons
 
 - TBD
 

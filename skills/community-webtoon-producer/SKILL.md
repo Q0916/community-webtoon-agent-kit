@@ -13,7 +13,7 @@ Produce a readable Korean community webtoon without hallucinating the community,
 
 Treat shared context and understanding alignment as a production input, not as conversational polish. A precise micro-prompt cannot recover a missing whole-story reason, reader-emotion sequence, recognizable motif, fact/MSG boundary, or user-observed mismatch.
 
-Preserve context that may look irrelevant to the immediate command when it changes creative judgment. Re-state the minimum common understanding inside every downstream packet that asks another model or pass to decide. Paths, hashes, references, and previous images prove state or appearance; they do not explain why the work should look or feel that way.
+Preserve context that may look irrelevant to the immediate command when it changes creative judgment. Re-state the enough context to reconstruct the intended judgment inside every downstream packet that asks another model or pass to decide. Paths, hashes, references, and previous images prove state or appearance; they do not explain why the work should look or feel that way.
 
 This rule comes from repeated quality improvement after failed prompt-only passes. It is not an abstract collaboration philosophy.
 
@@ -26,7 +26,7 @@ From the repository root, read:
 3. `docs/QUALITY_CONTRACT.md`
 4. the active project's `PROJECT.md`
 
-If no project exists, initialize one with `harness/scripts/init_project.py`.
+For creative collaboration, read `docs/CREATIVE_ROLES.md` and `docs/CREATIVE_CONTINUITY.md`; carry the relevant expertise, WHY and current delegation into the actual model request. Initialize a project with `harness/scripts/init_project.py` when the user is ready to develop the agreed material into production.
 
 ## Required Workflow
 
@@ -75,7 +75,7 @@ Do not turn a broad summary directly into image prompts. Each packet needs:
 
 This is a structural gate, not a guarantee that GPT/Codex wrote a strong conte. The production path is incomplete until the raw Gemini creative pass has been preserved, its proposals have been jointly adopted/adapted/rejected, and a human has approved the consolidated canonical version.
 
-If a reveal jumps too abruptly, insert a stacked two-subpanel bridge and delay the actual reveal to the next packet.
+If a reveal feels abrupt, locate the missing information or emotional transition and choose a reaction, bridge, pause or reordered reveal that serves the scene. After dialogue and scene revision, use `docs/PANEL_LAYOUT_REVISION.md` to revise the reading space before freezing inputs.
 
 ## Page Relation Gate
 
@@ -91,9 +91,7 @@ The currently verified default provider runtime is `ima2-gen`. This is an execut
 
 ## Image Page Contract
 
-Default to a 1024x1536 pure-white vertical manuscript page with 2-4 inset/cut-in illustration blocks and 28-42% continuous blank white page space for pacing and text. Bubbles, captions, comment cards, and SFX may sit outside the illustrated blocks.
-
-Use a full-page or poster composition only when the Director explicitly requests it.
+Use a 1024x1536 white vertical manuscript as the starting canvas. Choose panel count, occupied areas, whitespace, lettering and boundary crossings through the layout revision. A small reaction, splash, or asymmetric page may serve the scene. The older 2-4 blocks and 28-42% whitespace are a starter example, not a universal quota; carry the adopted page choices into the prompt.
 
 Build provider prompts as a positive inventory. Keep rejected concepts and contamination risks in audit files rather than teaching them to the provider through long negative lists.
 
