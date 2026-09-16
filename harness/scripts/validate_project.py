@@ -11,6 +11,8 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from provider_instruction_integrity import check as check_provider_body
+
 
 STAGE_ORDER = {
     "source": 1,
@@ -359,10 +361,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--stage", choices=STAGE_ORDER, required=True)
     parser.add_argument("--strict", action="store_true")
     parser.add_argument("--report", type=Path)
+    parser.add_argument("--provider-instruction", type=Path)
+    parser.add_argument("--provider-amendments", type=Path)
     return parser.parse_args()
 
 
-def run_validation(project: Path, stage: str, strict: bool) -> Report:
+def run_validation(project: Path, stage: str, strict: bool, provider_instruction: Path | None = None, provider_amendments: Path | None = None) -> Report:
     project = project.expanduser().resolve()
     report = Report(project=str(project), stage=stage, strict=strict)
     if not (project / "PROJECT.md").is_file():
@@ -376,12 +380,19 @@ def run_validation(project: Path, stage: str, strict: bool) -> Report:
         packet_ids = validate_conte(project, report)
     if STAGE_ORDER[stage] >= STAGE_ORDER["pre-generation"]:
         validate_pre_generation(project, report, packet_ids)
+        if provider_amendments and not provider_instruction:
+            report.failures.append("provider amendments require an approved instruction source")
+        if provider_instruction:
+            try:
+                check_provider_body(provider_instruction, project / "05_prompts", provider_amendments)
+            except (ValueError, KeyError, OSError) as error:
+                report.failures.append(f"provider instruction transfer: {error}")
     return report
 
 
 def main() -> int:
     args = parse_args()
-    report = run_validation(args.project, args.stage, args.strict)
+    report = run_validation(args.project, args.stage, args.strict, args.provider_instruction, args.provider_amendments)
     report_path = args.report or (args.project / "07_logs" / f"validation_{args.stage}.json")
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report.as_dict(), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

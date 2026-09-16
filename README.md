@@ -21,11 +21,11 @@ LLM과 오래 작업하면 같은 이름의 모델이어도 다음 작업자가 
 | 주체 | 역할과 전문 판단 |
 |---|---|
 | **User / Director** | 원작자·총괄 크리에이티브 디렉터. 기획·원안·각색·편집, 작품의 의도와 취향, 최종 채택을 결정합니다. |
-| **AGY / Gemini** | 메인 작가·연출가. 극작·인물의 목소리·감정선·코미디·시각적 은유·컷과 페이지 연출로 원안을 구체화합니다. |
-| **Codex / Producer** | 제작 프로듀서·담당 편집자. 의도를 읽는 편집, 독자와 매체에 맞는 전달, 그림·대사·여백의 관계, 전체 연결과 실제 제작을 맡습니다. |
+| **AGY / Gemini** | 시나리오·콘티 구성 담당. 극작·인물의 목소리·감정선·코미디·시각적 은유·컷과 페이지 연출로 원안을 구체화합니다. |
+| **Codex / Producer** | 제작 진행·원안 대조·검토 의견 담당. 의도를 읽는 편집, 독자와 매체에 맞는 전달, 그림·대사·여백의 관계, 전체 연결과 실제 제작을 맡습니다. |
 | **검증 하네스와 실행기** | 채택된 텍스트·캐스트·참조·입력 결합을 검사하고 실제 후보를 생성합니다. 창작적 선택은 사람과 작가·편집자가 판단합니다. |
 
-[역할의 이유와 판단 사례](docs/CREATIVE_ROLES.md)를 실제 의뢰에도 전달합니다. 기본 창작 판단은 Director 아래 AGY 우선이며 작품별 직접 위임을 이어받습니다. 거친 뼈대의 빈칸 채우기, 완성된 원고의 퇴고, 자유 집필은 이번 요청에 맞게 선택합니다. 기존 검증기는 Gemini 창작 참여와 사람 채택의 기록을 확인하므로, 실제 원출력과 현재 canonical 버전을 연결합니다.
+[역할의 이유와 판단 사례](docs/CREATIVE_ROLES.md)를 실제 의뢰에도 전달합니다. 의미·취향·핵심 연출은 Director가 결정하고, AGY 초안은 원문 그대로 먼저 전달합니다. 초안 확정 후 Codex가 승인된 편집·제작을 이어받으며 AGY 재참여는 사용자 요청 범위로 한정합니다. 거친 뼈대의 빈칸 채우기, 완성된 원고의 퇴고, 자유 집필은 이번 요청에 맞게 선택합니다. 기존 검증기는 Gemini 창작 참여와 사람 채택의 기록을 확인하므로, 실제 원출력과 현재 canonical 버전을 연결합니다.
 
 [창작 맥락을 이어주는 서술](docs/CREATIVE_CONTINUITY.md)은 매번 다른 작성자가 이어받는 상황을 전제로 합니다. 결론과 함께 WHY·교정 경위·선택의 자유를 충분히 남기고, 대사 길이·컷 수를 먼저 고정하기보다 원하는 독자 경험으로 안내합니다. 대사·장면 퇴고 뒤에는 [컷 배치 퇴고](docs/PANEL_LAYOUT_REVISION.md)를 수행합니다.
 
@@ -73,8 +73,10 @@ python harness/scripts/init_project.py --root work --slug my-first-toon --title 
 1. `01_sources/source_ledger.md`: 사실, 분위기, MSG, 사용 금지를 분리합니다.
 2. `02_direction/creative_brief.md`: 사용자 의도, 커뮤니티 기대, 만화 가독성의 교집합을 승인받습니다.
 3. `03_conte`에 Director/Producer의 거친 장면 뼈대를 먼저 보존합니다. 창작 모델에게 맡길 빈칸을 미리 메우지 않습니다.
-4. 그 뼈대와 사실/MSG 경계를 Gemini에게 주어 빈칸 채우기·연출 패스를 받고, 원출력을 별도 파일로 보존합니다.
+4. 그 뼈대와 사실/MSG 경계를 Gemini에게 주어 빈칸 채우기·연출 패스를 받고, 원출력을 별도 파일로 보존해 사용자에게 먼저 그대로 보여줍니다.
 5. Director와 Producer가 제안별로 `adopt / adapt / reject`를 정리한 뒤 하나의 canonical 콘티를 만들고 사람이 직접 수정하거나 승인합니다.
+초안 확정 후에는 Codex가 승인된 편집·배치·식자·제작 준비를 이어받고, AGY 재참여는 사용자가 요청한 범위에서 진행합니다.
+
 6. `04_locks/editorial_review_lock.csv`에 원 뼈대, Gemini 원출력, 공동 검토, 사람 승인본의 버전·근거 파일을 기록합니다.
 7. `04_locks`: 화면 텍스트, 화자, 캐스트, 레퍼런스를 잠급니다.
 8. `generation_plan.csv`에서 각 페이지를 `independent_page`, `same_scene_continuation`, `reused_shot_variation` 중 하나로 잠급니다.
@@ -100,6 +102,8 @@ python harness/scripts/freeze_completion.py \
   --materials-list work/my-first-toon/07_logs/used_materials.txt \
   --apply
 ```
+
+승인된 생성지침의 WHY·문맥·예시를 실제 입력에 그대로 전달하는 방법은 [provider 입력 보존](docs/PROVIDER_ADAPTER.md#생성지침의-why와-문맥-전달)을 따릅니다. 부정형 주의사항의 분리는 이유를 축약하는 권한이 아닙니다.
 
 ## 결과를 바꾸는 제작 규칙
 

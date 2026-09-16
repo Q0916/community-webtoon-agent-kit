@@ -24,15 +24,15 @@
 ## 권한과 승인
 
 - 사용자 = Director. 주제, 해석, 말맛, 캐릭터 스탠스, 생성 범위, 최종 시각 판단을 소유한다.
-- AGY = 메인 작가·연출가, Codex = 제작 프로듀서·담당 편집자. `docs/CREATIVE_ROLES.md`의 전문 관점과 사례로 판단하고 현재 작품의 직접 위임을 이어받는다.
+- AGY = 시나리오·콘티 구성 담당, Codex = 제작 진행·원안 대조·검토 의견 담당. `docs/CREATIVE_ROLES.md`의 전문 관점과 사례로 판단하고 현재 작품의 직접 위임을 이어받는다.
 - `추가`, `중요`, `사이에`는 기본적으로 콘티 수정 요청이다. `생성해`, `뽑아줘`처럼 명시되지 않으면 이미지 생성 권한이 아니다.
 - 기술 검사 PASS는 생성 승인이나 시각 승인과 다르다.
 - GPT/Codex는 자신의 콘티를 스스로 창작 품질 승인할 수 없다. 구조 검사는 가능하지만 프론트 창작 품질 보증이 아니다.
-- 콘티는 Gemini의 독립 검수·버전업과 사람의 직접 수정 또는 최종 승인을 모두 거쳐야 한다. Gemini를 사용할 수 없으면 검증된 경로를 완료했다고 보고하지 말고 중단 또는 품질 범위 이탈을 명시한다.
+- AGY 원출력은 사용자에게 먼저 그대로 전달한다. 수정·재집필은 사용자가 정한 범위에서 진행한다. 초안 확정 뒤 편집·배치·생성 준비는 Codex가 맡고, AGY 재참여는 사용자가 요청할 때만 한다.
 
 ## 필수 제작 순서
 
-`source ledger -> direction agreement -> draft conte -> Gemini editorial review/version-up -> human edit/final conte approval -> locks -> provider prompt pack -> technical preflight -> user generation approval -> pilot -> human review -> optional selected-page finishing -> selected delivery -> completion archive`
+`source ledger -> direction agreement -> raw AGY conte -> Director adopt/adapt/reject -> scoped editing and human final conte approval -> locks -> provider prompt pack -> technical preflight -> user generation approval -> pilot -> human review -> optional selected-page finishing -> selected delivery -> completion archive`
 
 단계를 건너뛰지 않는다. 직전 단계가 승인되지 않았으면 다음 단계의 실제 생성이나 대량 작업을 시작하지 않는다.
 

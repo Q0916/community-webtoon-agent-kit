@@ -140,6 +140,22 @@ class KitTests(unittest.TestCase):
         prompt = "\n".join(values.get(line, line) for line in prompt.splitlines()) + "\n"
         (self.project / "05_prompts" / "P001.txt").write_text(prompt, encoding="utf-8")
 
+    def test_provider_body_check_runs_in_existing_preflight(self) -> None:
+        self.make_valid_project()
+        source = self.root / "provider.md"
+        source.write_text("WHY: retain the reader's pause.\nPlease cooperate.\n", encoding="utf-8")
+        report = run_validation(self.project, "pre-generation", True, source)
+        self.assertTrue(any("PROVIDER_BODY_NOT_VERBATIM" in x for x in report.failures))
+        for prompt in (self.project / "05_prompts").glob("*.txt"):
+            prompt.write_text(prompt.read_text(encoding="utf-8") + "\n" + source.read_text(encoding="utf-8"), encoding="utf-8")
+        report = run_validation(self.project, "pre-generation", True, source)
+        self.assertEqual(report.status, "pass", report.failures)
+
+    def test_provider_amendments_require_source(self) -> None:
+        self.make_valid_project()
+        report = run_validation(self.project, "pre-generation", True, provider_amendments=self.root / "amendments.json")
+        self.assertTrue(any("require an approved instruction source" in x for x in report.failures))
+
     def test_initializer_creates_expected_surfaces(self) -> None:
         self.assertTrue((self.project / "PROJECT.md").is_file())
         self.assertTrue((self.project / "05_prompts" / "P001.txt").is_file())

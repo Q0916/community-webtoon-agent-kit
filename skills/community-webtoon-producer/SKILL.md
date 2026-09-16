@@ -35,7 +35,7 @@ For creative collaboration, read `docs/CREATIVE_ROLES.md` and `docs/CREATIVE_CON
 3. Discuss and obtain approval for the sweet spot: Director intent, community reader expectation, and comic pacing.
 4. Write and preserve a rough Director/producer beat skeleton. When a deliberate blank is part of the brief, leave it open instead of pre-solving it before the creative pass.
 5. Give the skeleton and the full source/fact/MSG boundary to Gemini as a blank-filling or staging pass. Preserve the raw Gemini output beside the raw skeleton; do not overwrite either artifact.
-6. Review the two artifacts with the Director and record each substantial proposal as `adopt`, `adapt`, or `reject`. Codex may enter the work to correct facts or continuity; that correction can remain visible when it serves the comic.
+6. Show the raw draft to the Director before editing or asking for a rewrite. Keep review comments separate, then record `adopt`, `adapt`, or `reject` and make only the agreed corrections. Once the Director freezes the draft and enters editing, Codex owns the delegated layout, lettering and preparation; call AGY again only on a new user request.
 7. Consolidate the accepted result into one canonical conte. Give every cut `handoff_from_previous`, `reader_first_sees`, `character_realizes`, and `push_to_next`, then reduce density only after causality is visible.
 8. Require a human to read, edit if needed, and explicitly approve that canonical conte. Record the raw skeleton, raw Gemini pass, joint review, and human-approved canonical version in `editorial_review_lock.csv`.
 9. Promote the human-approved conte into page/cut packets with stable packet IDs.
@@ -44,7 +44,7 @@ For creative collaboration, read `docs/CREATIVE_ROLES.md` and `docs/CREATIVE_CON
 12. Lock visible text routing: owner, role, attachment, read order.
 13. Lock visible cast, reference roles, hashes, and co-appearance rules. If a recurring character has no human-approved identity reference, stop and request one instead of claiming identity consistency.
 14. Write one self-contained provider-bound prompt per page using the generation contract.
-15. Run `validate_project.py --stage pre-generation --strict`.
+15. Run `validate_project.py --stage pre-generation --strict`; when an approved provider instruction source is used, pass `--provider-instruction` and any authorized `--provider-amendments` as described in `docs/PROVIDER_ADAPTER.md`.
 16. Wait for explicit user authorization to generate.
 17. Use ima2-gen as the default runtime and record the actual runtime, inputs, and outputs. After authorization, generate at least three independent candidates; prefer four to six for acting, expression, action, reveal, or atmosphere. Use a single candidate only for a technical probe, explicit cost limit, or direct user request.
    - If one independent job fails while later work remains, carry only the missing job into the next live wave immediately, ahead of ordinary jobs, without rebooting or cancelling successful in-flight work. After the final wave, make one isolated tail retry and leave any remaining failure explicit.
@@ -93,7 +93,7 @@ The currently verified default provider runtime is `ima2-gen`. This is an execut
 
 Use a 1024x1536 white vertical manuscript as the starting canvas. Choose panel count, occupied areas, whitespace, lettering and boundary crossings through the layout revision. A small reaction, splash, or asymmetric page may serve the scene. The older 2-4 blocks and 28-42% whitespace are a starter example, not a universal quota; carry the adopted page choices into the prompt.
 
-Build provider prompts as a positive inventory. Keep rejected concepts and contamination risks in audit files rather than teaching them to the provider through long negative lists.
+Build provider prompts as a positive inventory. Preserve the approved provider prose, including WHY, examples and collaboration intent; apply only explicitly authorized wording changes. Keep rejected concepts and production cautions in internal audit files, and keep those files, excerpts and links out of model inputs. Separating a caution is not permission to summarize its surrounding reason. Read `docs/PROVIDER_ADAPTER.md` for body assembly and the existing preflight integration.
 
 ## Review And Delivery
 
