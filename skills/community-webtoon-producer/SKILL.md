@@ -101,6 +101,10 @@ The user owns visual quality judgment. Do not silently filter candidates, mark v
 
 Delivery folders are user workbenches. Never rebuild or overwrite an earlier delivery. Create a fresh delivery for later candidates.
 
+Deliver original images in page order: all P001 candidates, then all P002 candidates. The purpose is to let the user open and zoom the originals comfortably. Build a comparison/viewing HTML only on an explicit user request; lettering/export HTML remains part of its own production task.
+
+For character exploration and revision, use the reusable judgments in `docs/CREATIVE_CONTINUITY.md`: align an open interpretation before requesting a finished design, distinguish adopted production rules from unadopted hypotheses, preserve emotional changes during compression, and retain the user's selected pages when updating only an affected range. These do not add a new review gate.
+
 ## Completion
 
 Final approval is not complete until the archive contains:
