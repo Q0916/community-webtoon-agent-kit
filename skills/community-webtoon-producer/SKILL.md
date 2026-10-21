@@ -19,6 +19,8 @@ This rule comes from repeated quality improvement after failed prompt-only passe
 
 ## First Read
 
+새 작품은 `docs/WORKFLOW.md`와 사용하는 단계별 매뉴얼을 처음부터 끝까지 읽고 작품의 `PRODUCTION_CHECKLIST.md`를 만든다. 각 단계 진입 시 해당 매뉴얼·예시와 직전 결과를 읽고, 종료 시 실제 적용 결과로 갱신한 뒤 다음 단계 문서를 읽는다. 통과 증거는 유효한 동안 재사용한다. AGY에는 내부 체크리스트를 넘기지 않고 짧은 자연어와 실제 자료를 전달한다.
+
 From the repository root, read:
 
 1. `AGENTS.md`

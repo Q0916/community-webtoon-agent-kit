@@ -57,6 +57,7 @@ def create_project(root: Path, slug: str, title: str) -> Path:
 - stage: `source`
 - status: `active`
 - current_authority: `PROJECT.md`
+- checklist: `PRODUCTION_CHECKLIST.md`
 - next_action: fill `01_sources/source_ledger.md`
 
 ## Director Decisions
@@ -86,6 +87,7 @@ Move superseded or rejected work out of current surfaces. Preserve it under `06_
     (target / "PROJECT.md").write_text(project_md, encoding="utf-8")
 
     copy_map = {
+        "production_checklist.md": "PRODUCTION_CHECKLIST.md",
         "source_ledger.md": "01_sources/source_ledger.md",
         "creative_brief.md": "02_direction/creative_brief.md",
         "image_ready_conte.md": "03_conte/image_ready_conte.md",
