@@ -11,3 +11,4 @@ Primary anchor URL:
 ## Corrections
 
 Record contradictions, later corrections, and replaced assumptions here. Do not silently rewrite old observations.
+(사후에 확인된 정정, 상충하는 정황, 교체된 가정을 이곳에 기록하며 초기 관측 기록을 소리 없이 덮어쓰지 않는다. 원문 자료의 사실, 작품이 채택한 가정, 작중 인물의 믿음, 작가가 새로 제안한 각색을 구별해 남긴다.)
