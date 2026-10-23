@@ -17,7 +17,7 @@
 | [ ] | 2 콘티·퇴고·컷 배분 | `docs/CRAFT_REVIEW.md`, `docs/PANEL_LAYOUT_REVISION.md` | 전편→장면→컷 퇴고 및 콘티 메모 기록 | |
 | [ ] | 3 실제 생성 입력 조립 | `docs/CUT_BASED_PRODUCTION.md`, `docs/PANELING_AND_PACING.md` | 전체 흐름·현재 구간·앞뒤 상태·정확한 대사·WHY·글자 가독성 목적 전달 | |
 | [ ] | 4 생성·성공 원본 회수 | `docs/CUT_BASED_PRODUCTION.md` | 승인 수량·비용 범위 내 유효 후보 확보 및 늦은 성공 회수 | |
-| [ ] | 5 컷 분리·사용자 선택 | `docs/CUT_BASED_PRODUCTION.md` | 1~2컷 시트 분리 및 사용자 최종 후보 선택 | |
+| [ ] | 5 컷 분리·사용자 선택 | `docs/CUT_BASED_PRODUCTION.md` | 1-2컷 시트 분리 및 사용자 최종 후보 선택 | |
 | [ ] | 6 크기·위치·호흡 편집 | `docs/PANELING_AND_PACING.md`, `docs/UPLOAD_DELIVERY.md` | 기존 여백을 반영한 컷 사이 실제 거리·배율·좌우 정렬 편집 | |
 | [ ] | 7 최종 채택·완성 보관 | `docs/UPLOAD_DELIVERY.md` | 전체 보기본 보관, 무손실 여백 분할(디시 기준 20,000,000바이트 미만·세로 9,000px 이하 등), `freeze_completion.py` 해시 기록 | |
 

@@ -2,7 +2,7 @@
 
 이 키트의 현재 검증된 기본 실제 이미지 실행기는 별도 설치하는 [**ima2-gen**](https://github.com/lidge-jun/ima2-gen)입니다. 실제 생성은 `ima2-gen`의 CLI/server 경로로 수행하며, 별도 shim이나 성공을 흉내 내는 우회 경로를 만들지 않습니다. 다른 provider/runtime으로 교체할 수는 있지만 아래 입력·증거 계약은 그대로 지켜야 합니다.
 
-공개 저장소(`Q0916/community-webtoon-agent-kit`)는 Python 3.10+ 표준 라이브러리 기반의 초기화·검증·동결 스크립트(`init_project.py`, `validate_project.py`, `provider_instruction_integrity.py`, `freeze_completion.py`, `verify_repository.py`)만 제공합니다. 생성 runner, 누적 receipt 분석기, 1~2컷 시트 분리·재배치 도구, 업로드 무손실 분할 도구는 공개 키트 자체에 포함되지 않습니다.
+공개 저장소(`Q0916/community-webtoon-agent-kit`)는 Python 3.10+ 표준 라이브러리 기반의 초기화·검증·동결 스크립트(`init_project.py`, `validate_project.py`, `provider_instruction_integrity.py`, `freeze_completion.py`, `verify_repository.py`)만 제공합니다. 생성 runner, 누적 receipt 분석기, 1-2컷 시트 분리·재배치 도구, 업로드 무손실 분할 도구는 공개 키트 자체에 포함되지 않습니다.
 
 기본 실행 예시는 `ima2 gen "..."`이며 설치형 CLI가 없으면 `npx ima2-gen <command>`를 사용합니다. 서버 주소가 필요할 때는 실행 출력이나 `ima2`의 server state를 확인하고 특정 포트를 임의로 가정하지 않습니다.
 
@@ -16,7 +16,7 @@
 
 ## 입력
 
-- provider-bound prompt 한 개 (기존 전체 페이지 프로필의 페이지 프롬프트 또는 `docs/CUT_BASED_PRODUCTION.md`의 분리 가능한 1~2컷 시트 프롬프트)
+- provider-bound prompt 한 개 (기존 전체 페이지 프로필의 페이지 프롬프트 또는 `docs/CUT_BASED_PRODUCTION.md`의 분리 가능한 1-2컷 시트 프롬프트)
 - generation plan에 기록된 실제 `runtime` 이름(기본값 `ima2-gen`)
 - 작품 전체 이야기, 독자 감정 순서, 현재 구간/장면의 이유와 앞뒤 상태, 정확한 대사, `fact`/`MSG` 경계
 - generation plan에 잠근 `scene_relation`
@@ -70,10 +70,10 @@ provider adapter는 가능한 범위에서 다음을 남깁니다.
 
 1. 한국어가 provider까지 손상 없이 전달됐는가?
 2. 올바른 레퍼런스 파일이 붙었는가?
-3. 흰 원고지 또는 분리 가능한 1~2컷 시트 구조가 prompt에 실제 포함됐는가?
+3. 흰 원고지 또는 분리 가능한 1-2컷 시트 구조가 prompt에 실제 포함됐는가?
 4. 출력이 정상 완료됐는가?
 
-1~3은 첫 실행기 도입이나 입력 변경 시 실제 전달을 확인하는 기술 검증이고, 생성된 이미지의 매력과 채택 여부는 사람 검수입니다. 파일럿은 전달 확인 절차이지 이후 모든 본생성을 작은 배치로만 제한하라는 뜻이 아닙니다.
+1-3은 첫 실행기 도입이나 입력 변경 시 실제 전달을 확인하는 기술 검증이고, 생성된 이미지의 매력과 채택 여부는 사람 검수입니다. 파일럿은 전달 확인 절차이지 이후 모든 본생성을 작은 배치로만 제한하라는 뜻이 아닙니다.
 
 ## 대량 병렬 후보 탐색
 
